@@ -1,1 +1,1 @@
-# Rails_Learing_App
+# Ruby on Rails Tutorial: sample application
