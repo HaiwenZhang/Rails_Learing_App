@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
   def new
   end
 
+  # 用户登录
   def create
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
@@ -18,7 +19,7 @@ class SessionsController < ApplicationController
     end
   end
 
-
+# 用户注销
   def destroy
     log_out if logged_in?
     redirect_to root_url
