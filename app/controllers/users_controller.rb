@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.where(activated: true).paginate(page: params[:page])
   end
   # 用户注册页面
   def new
@@ -16,9 +16,13 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      log_in @user
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account"
+      redirect_to root_url
+
+      #log_in @user
+      #flash[:success] = "Welcome to the Sample App!"
+      #redirect_to @user
       #redirect_to(:action => 'show', :id => @user.id)
     else
       render 'new'
@@ -47,7 +51,7 @@ class UsersController < ApplicationController
     end
   end
 
-
+  # 删除用户
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
