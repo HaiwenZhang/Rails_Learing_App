@@ -1,3 +1,4 @@
+# coding: utf-8
 class PasswordResetsController < ApplicationController
 
   before_action :get_user, only: [:edit, :update]
