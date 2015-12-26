@@ -20,10 +20,13 @@ class SessionsController < ApplicationController
         flash[:warning] = message
         redirect_to root_url
       end
+    else
+       flash.now[:danger] = 'Invalid email/password combination'
+       render 'new'
       #log_in user
       #params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       #redirect_back_or user #返回之前的想要访问的URL
-    #else
+      #else
       #flash.now[:danger] = 'Invalid email/password combination'
       #render 'new'
     end

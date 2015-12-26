@@ -1,3 +1,4 @@
+# coding: utf-8
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update, :show, :index, :destroy]
   before_action :correct_user, only: [:edit, :update, :show]
@@ -32,6 +33,7 @@ class UsersController < ApplicationController
   # 用户信息
   def show
     @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
     #debugger
   end
 
@@ -58,13 +60,13 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
-  def logged_in_user
-    unless logged_in?
-      store_location #存储登录前想要访问的URL
-      flash[:danger] = "Please log in."
-      redirect_to login_url
-    end
-  end
+#  def logged_in_user
+#    unless logged_in?
+#      store_location #存储登录前想要访问的URL
+#      flash[:danger] = "Please log in."
+#      redirect_to login_url
+#    end
+#  end
 
 
   def correct_user
