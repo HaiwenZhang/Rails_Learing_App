@@ -6,6 +6,15 @@ module SessionsHelper
     session[:user_id] = user.id
   end
 
+
+  def current_user?(user)
+    if current_user == user
+      return true
+    else
+      return false
+    end
+  end
+
   # 返回当前登录的用户(如果有的话)
   def current_user
     #@current_user ||= User.find_by(id: session[:user_id])
